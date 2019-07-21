@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>video upload</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style type="text/css">
+        .container {
+            height: 100%;
+        }
+
+        .tips {
+            width: 80%;
+            margin: 20px auto;
+            font-size: 14px;
+            line-height: 20px;
+            color: #fc9153;
+        }
+
+        .camera-input {
+            position: relative;
+            height: 30px;
+        }
+
+        .video-button {
+            margin: 0 auto;
+            margin-top: 30%;
+            width: 80%;
+            background: #fc9153;
+            font-size: 14px;
+            color: #fff;
+            line-height: 30px;
+            text-align: center;
+        }
+
+        #takeVideo {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 30px;
+            box-sizing: border-box;
+            border: 1px solid #fdfdfd;
+            line-height: 28px;
+            opacity: 0;
+        }
+
+        #video-show {
+            margin-top: 20px;
+            max-height: 200px;
+        }
+
+        #video-show video {
+            display: block;
+            margin: 0 auto;
+            max-height: 200px;
+        }
+
+        .uploading {
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .uploading .up-tips {
+            text-align: center;
+            font-size: 18px;
+            color: #fdfdfd;
+            margin-top: 40%;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="camera-input">
+        <div class="video-button">点击录制视频</div>
+        <input type="file" name="file" accept="video/*" id="takeVideo" capture="camcorder"/>
+    </div>
+    <div class="uploading" id="uploading" style="display: none">
+        <div class="up-tips">上传中......</div>
+    </div>
+</div>
+</body>
+<script src="/jquery.js"></script>
+<script>
+    const $input = $('#takeVideo');
+    const $form = $('#form');
+    const $uploading = $('#uploading');
+    $input.on('change', function (event) {
+        const files = event.target.files;
+        if (files && files.length > 0) {
+            let file = files[0];
+            if (file.size > 100 * 1024 * 1024) {
+                alert('视频大于100M，请重新上传');
+                return;
+            }
+            // $form.submit();
+            let formData = new FormData();
+
+            formData.append('file', file);
+            $uploading.show();
+            $.ajax({
+                url: '/upload',
+                type: 'POST',
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false
+            }).then(function (data) {
+                console.log(data);
+                if (data === 'success') {
+                    window.location.href = '/result?m=1'
+                } else {
+                    window.location.href = '/result?m=0'
+                }
+
+            }).catch(function (e) {
+                console.error(e);
+                window.location.href = '/result?m=0'
+            });
+
+
+        } else {
+            alert('请重新上传视频');
+        }
+    })
+</script>
+</html>

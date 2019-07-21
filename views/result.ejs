@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>video upload</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+        .tips{
+            width: 80%;
+            margin: 20px auto;
+            margin-top: 20%;
+            font-size: 28px;
+            line-height: 20px;
+            text-align: center;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: dodgerblue;
+        }
+
+        .back-btn{
+            display: block;
+            margin: 0 auto;
+            margin-top: 10%;
+            width: 80%;
+            background: #fc9153;
+            font-size: 14px;
+            color: #fff;
+            line-height: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <% if(success == 1){%>
+    <div class="tips success">
+        上传成功
+    </div>
+    <%}else{%>
+    <div class="tips error">
+        上传失败
+    </div>
+    <%}%>
+
+    <a class="back-btn" href="/">返回</a>
+
+</div>
+</body>
+</html>
