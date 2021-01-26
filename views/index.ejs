@@ -86,6 +86,7 @@
 </div>
 </body>
 <script src="/jquery.js"></script>
+<script src="/ajax.js"></script>
 <script>
     const $input = $('#takeVideo');
     const $form = $('#form');
@@ -103,7 +104,7 @@
 
             formData.append('file', file);
             $uploading.show();
-            $.ajax({
+            ajax({
                 url: '/upload',
                 type: 'POST',
                 data: formData,
