@@ -1,6 +1,9 @@
 {
   "name": "koa-h5-video-async-upload",
   "version": "1.0.0",
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
     "koa": "^2.7.0",
     "koa-router": "^7.4.0",
